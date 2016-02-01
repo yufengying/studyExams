@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7DD9F5DF1C5F734300F7C90B /* SelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD9F5DE1C5F734300F7C90B /* SelectView.m */; };
+		7DD9F5E21C5F9AE100F7C90B /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD9F5E11C5F9AE100F7C90B /* FirstViewController.m */; };
+		7DD9F5EB1C5F9E5C00F7C90B /* FirstTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD9F5E91C5F9E5C00F7C90B /* FirstTableViewCell.m */; };
+		7DD9F5EC1C5F9E5C00F7C90B /* FirstTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DD9F5EA1C5F9E5C00F7C90B /* FirstTableViewCell.xib */; };
 		7DF3F73B1C5C616600DFD827 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF3F73A1C5C616600DFD827 /* main.m */; };
 		7DF3F73E1C5C616600DFD827 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF3F73D1C5C616600DFD827 /* AppDelegate.m */; };
 		7DF3F7411C5C616600DFD827 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF3F7401C5C616600DFD827 /* ViewController.m */; };
@@ -62,6 +66,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7DD9F5DD1C5F734300F7C90B /* SelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectView.h; sourceTree = "<group>"; };
+		7DD9F5DE1C5F734300F7C90B /* SelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectView.m; sourceTree = "<group>"; };
+		7DD9F5E01C5F9AE100F7C90B /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
+		7DD9F5E11C5F9AE100F7C90B /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		7DD9F5E81C5F9E5C00F7C90B /* FirstTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstTableViewCell.h; sourceTree = "<group>"; };
+		7DD9F5E91C5F9E5C00F7C90B /* FirstTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstTableViewCell.m; sourceTree = "<group>"; };
+		7DD9F5EA1C5F9E5C00F7C90B /* FirstTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirstTableViewCell.xib; sourceTree = "<group>"; };
 		7DF3F7361C5C616600DFD827 /* 考研助手.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "考研助手.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DF3F73A1C5C616600DFD827 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7DF3F73C1C5C616600DFD827 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -132,6 +143,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7DD9F5E31C5F9AEA00F7C90B /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				7DD9F5E01C5F9AE100F7C90B /* FirstViewController.h */,
+				7DD9F5E11C5F9AE100F7C90B /* FirstViewController.m */,
+			);
+			name = controller;
+			sourceTree = "<group>";
+		};
+		7DD9F5E41C5F9DF400F7C90B /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				7DD9F5E81C5F9E5C00F7C90B /* FirstTableViewCell.h */,
+				7DD9F5E91C5F9E5C00F7C90B /* FirstTableViewCell.m */,
+				7DD9F5EA1C5F9E5C00F7C90B /* FirstTableViewCell.xib */,
+			);
+			name = cell;
+			sourceTree = "<group>";
+		};
 		7DF3F72D1C5C616600DFD827 = {
 			isa = PBXGroup;
 			children = (
@@ -156,8 +186,12 @@
 		7DF3F7381C5C616600DFD827 /* 考研助手 */ = {
 			isa = PBXGroup;
 			children = (
+				7DD9F5E41C5F9DF400F7C90B /* cell */,
+				7DD9F5E31C5F9AEA00F7C90B /* controller */,
 				7DF3F73C1C5C616600DFD827 /* AppDelegate.h */,
 				7DF3F73D1C5C616600DFD827 /* AppDelegate.m */,
+				7DD9F5DD1C5F734300F7C90B /* SelectView.h */,
+				7DD9F5DE1C5F734300F7C90B /* SelectView.m */,
 				7DF3F73F1C5C616600DFD827 /* ViewController.h */,
 				7DF3F7401C5C616600DFD827 /* ViewController.m */,
 				7DF3F7421C5C616600DFD827 /* Main.storyboard */,
@@ -357,6 +391,7 @@
 				7DF3F7991C5C64DB00DFD827 /* 21.png in Resources */,
 				7DF3F7461C5C616600DFD827 /* Assets.xcassets in Resources */,
 				7DF3F7951C5C64DB00DFD827 /* 18.png in Resources */,
+				7DD9F5EC1C5F9E5C00F7C90B /* FirstTableViewCell.xib in Resources */,
 				7DF3F7A01C5C64DB00DFD827 /* 8.png in Resources */,
 				7DF3F7931C5C64DB00DFD827 /* 17.png in Resources */,
 				7DF3F78B1C5C64DB00DFD827 /* 111q.png in Resources */,
@@ -391,6 +426,9 @@
 			files = (
 				7DF3F7411C5C616600DFD827 /* ViewController.m in Sources */,
 				7DF3F73E1C5C616600DFD827 /* AppDelegate.m in Sources */,
+				7DD9F5EB1C5F9E5C00F7C90B /* FirstTableViewCell.m in Sources */,
+				7DD9F5E21C5F9AE100F7C90B /* FirstViewController.m in Sources */,
+				7DD9F5DF1C5F734300F7C90B /* SelectView.m in Sources */,
 				7DF3F73B1C5C616600DFD827 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -615,6 +653,7 @@
 				7DF3F7651C5C616600DFD827 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7DF3F7661C5C616600DFD827 /* Build configuration list for PBXNativeTarget "考研助手Tests" */ = {
 			isa = XCConfigurationList;
@@ -623,6 +662,7 @@
 				7DF3F7681C5C616600DFD827 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7DF3F7691C5C616600DFD827 /* Build configuration list for PBXNativeTarget "考研助手UITests" */ = {
 			isa = XCConfigurationList;
@@ -631,6 +671,7 @@
 				7DF3F76B1C5C616600DFD827 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

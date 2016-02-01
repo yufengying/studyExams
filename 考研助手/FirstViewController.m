@@ -1,0 +1,84 @@
+//
+//  FirstViewController.m
+//  考研助手
+//
+//  Created by zhuzhu on 16/2/1.
+//  Copyright © 2016年 zhuzhu. All rights reserved.
+//
+
+#import "FirstViewController.h"
+#import "FirstTableViewCell.h"
+@interface FirstViewController ()<UITableViewDelegate,UITableViewDataSource>
+{
+    UITableView * _tableView;
+    NSArray *_dataArray;
+}
+@end
+
+@implementation FirstViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.title = @"科目一：理论考试";
+    _dataArray = @[@"章节练习",@"顺序练习",@"随机练习",@"专项练习",@"仿真模拟考试"];
+    [self createTableView];
+    [self createView];
+}
+
+-(void)createView{
+    UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2-150, self.view.frame.size.height-64-140, 300, 30)];
+    lable.textAlignment = NSTextAlignmentCenter;
+    lable.text = @"---------------我的考试分析-----------------";
+    [self.view addSubview:lable];
+    NSArray * arr = @[@"我的错题",@"我的收藏",@"我的成绩",@"练习统计"];
+    for (int i = 0; i<4;i++) {
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+        btn.frame = CGRectMake(self.view.frame.size.width/4*i+self.view.frame.size.width/4/2-30, self.view.frame.size.height-64-100, 60, 60);
+        [btn setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%d.png",12+i]] forState:UIControlStateNormal];
+        [self.view addSubview:btn];
+        UILabel *lab = [[UILabel alloc]initWithFrame:CGRectMake(self.view.frame.size.width/4*i+self.view.frame.size.width/4/2-30, self.view.frame.size.height-64-25, 60, 20)];
+        lab.textAlignment = NSTextAlignmentCenter;
+        lab.text = arr[i];
+        lab.font = [UIFont boldSystemFontOfSize:13];
+        [self.view addSubview:lab];
+    }
+}
+
+- (void)createTableView{
+    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 250) style:UITableViewStylePlain];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    [self.view addSubview:_tableView];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - tableview delegate
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return  _dataArray.count;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPat{
+    return 50;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *cellID = @"FirstTableViewCell";
+    FirstTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    if (cell == nil) {
+        cell = [[[NSBundle mainBundle]loadNibNamed:cellID owner:self options:nil]lastObject];
+    }
+    cell.myImageVIew.image = [UIImage imageNamed:[NSString stringWithFormat:@"%ld.png",indexPath.row+7]];
+    cell.myLable.text = _dataArray[indexPath.row];
+    return cell;
+}
+@end
