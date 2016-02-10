@@ -5,9 +5,14 @@
 //  Created by zhuzhu on 16/2/1.
 //  Copyright © 2016年 zhuzhu. All rights reserved.
 //
-
+/*
+ 实现第一个科目一理论考试界面
+ */
 #import "FirstViewController.h"
 #import "FirstTableViewCell.h"
+#import "TestSelectViewController.h"
+#import "MyDataManager.h"
+
 @interface FirstViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView * _tableView;
@@ -20,7 +25,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = [UIColor whiteColor];
+    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
     self.title = @"科目一：理论考试";
     _dataArray = @[@"章节练习",@"顺序练习",@"随机练习",@"专项练习",@"仿真模拟考试"];
     [self createTableView];
@@ -81,4 +88,24 @@
     cell.myLable.text = _dataArray[indexPath.row];
     return cell;
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    switch (indexPath.row) {
+        case 0://章节练习
+        {
+            TestSelectViewController *con = [[TestSelectViewController alloc]init];
+            con.myTitle = @"章节练习";
+            con.dataArray = [MyDataManager getData:chapter];
+            UIBarButtonItem *item = [[UIBarButtonItem alloc]init];
+            item.title = @"";
+            item.tintColor = [UIColor whiteColor];
+            self.navigationItem.backBarButtonItem = item;
+            [self.navigationController pushViewController:con animated:YES];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
 @end
