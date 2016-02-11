@@ -10,9 +10,11 @@
 #import "AnswerScrollView.h"
 #import "MyDataManager.h"
 #import "AnswerModel.h"
+#import "SelectModelView.h"
 @interface AnswerViewController ()
 {
     AnswerScrollView * view;
+    SelectModelView * modelView;
 }
 @end
 
@@ -23,8 +25,9 @@
 
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = [UIColor whiteColor];
-    NSMutableArray * arr = [NSMutableArray array];
+    [self createData];
     
+    NSMutableArray * arr = [NSMutableArray array];
     NSArray * array = [MyDataManager getData:answer];
     
     for (int i=0; i<array.count-1; i++) {
@@ -37,7 +40,30 @@
     view = [[AnswerScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64-60) withDataArray:arr];
     [self.view addSubview:view];
     [self createToolBar];
+    [self createModelView];
 }
+
+-(void)createData{
+    
+}
+
+-(void)createModelView{
+    modelView = [[SelectModelView alloc]initWithFrame:self.view.frame addTouch:^(SelectModel model) {
+        NSLog(@"当前模式：%d",model);
+    }];
+    
+    [self.view addSubview:modelView];
+    modelView.alpha = 0;
+    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithTitle:@"答题模式" style:UIBarButtonItemStylePlain target:self action:@selector(modelChange:)];
+    self.navigationItem.rightBarButtonItem = item;
+}
+
+-(void)modelChange:(UIBarButtonItem *)item{
+    [UIView animateWithDuration:0.3 animations:^{
+        modelView.alpha = 1;
+    }];
+}
+
 //创建答题界面的tabar
 -(void)createToolBar{
     UIView * barView = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height-60-64, self.view.frame.size.width, 60)];

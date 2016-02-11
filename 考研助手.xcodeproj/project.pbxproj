@@ -177,6 +177,7 @@
 		7D05A0D71C6644CF009C36B9 /* AnswerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D05A0D51C6644CF009C36B9 /* AnswerTableViewCell.m */; };
 		7D05A0D81C6644CF009C36B9 /* AnswerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D05A0D61C6644CF009C36B9 /* AnswerTableViewCell.xib */; };
 		7D05A0DB1C664C5A009C36B9 /* AnswerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D05A0DA1C664C5A009C36B9 /* AnswerViewController.m */; };
+		7D387B091C6BF279001D5E3F /* SelectModelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D387B081C6BF279001D5E3F /* SelectModelView.m */; };
 		7DA357FC1C66E48C00162F5A /* AnswerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA357FB1C66E48C00162F5A /* AnswerModel.m */; };
 		7DA357FF1C66E77300162F5A /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA357FE1C66E77300162F5A /* Tools.m */; };
 		7DBD46F51C60D82F005CC0F0 /* TestSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBD46F41C60D82F005CC0F0 /* TestSelectViewController.m */; };
@@ -421,6 +422,8 @@
 		7D05A0D61C6644CF009C36B9 /* AnswerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnswerTableViewCell.xib; sourceTree = "<group>"; };
 		7D05A0D91C664C5A009C36B9 /* AnswerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnswerViewController.h; sourceTree = "<group>"; };
 		7D05A0DA1C664C5A009C36B9 /* AnswerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnswerViewController.m; sourceTree = "<group>"; };
+		7D387B071C6BF279001D5E3F /* SelectModelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectModelView.h; sourceTree = "<group>"; };
+		7D387B081C6BF279001D5E3F /* SelectModelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectModelView.m; sourceTree = "<group>"; };
 		7DA357FA1C66E48C00162F5A /* AnswerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnswerModel.h; sourceTree = "<group>"; };
 		7DA357FB1C66E48C00162F5A /* AnswerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnswerModel.m; sourceTree = "<group>"; };
 		7DA357FD1C66E77300162F5A /* Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
@@ -719,6 +722,8 @@
 				7DD9F5DE1C5F734300F7C90B /* SelectView.m */,
 				7D05A0C91C6632E9009C36B9 /* AnswerScrollView.h */,
 				7D05A0CA1C6632E9009C36B9 /* AnswerScrollView.m */,
+				7D387B071C6BF279001D5E3F /* SelectModelView.h */,
+				7D387B081C6BF279001D5E3F /* SelectModelView.m */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -1183,6 +1188,7 @@
 				7D05A0D71C6644CF009C36B9 /* AnswerTableViewCell.m in Sources */,
 				7DD9F5EB1C5F9E5C00F7C90B /* FirstTableViewCell.m in Sources */,
 				7D05A0C31C661AAD009C36B9 /* MyDataManager.m in Sources */,
+				7D387B091C6BF279001D5E3F /* SelectModelView.m in Sources */,
 				7D05A0BA1C661959009C36B9 /* FMDatabase.m in Sources */,
 				7DBD46F51C60D82F005CC0F0 /* TestSelectViewController.m in Sources */,
 				7D05A0BD1C661959009C36B9 /* FMDatabaseQueue.m in Sources */,

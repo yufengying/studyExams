@@ -5,6 +5,9 @@
 //  Created by zhuzhu on 16/2/6.
 //  Copyright © 2016年 zhuzhu. All rights reserved.
 //
+/*
+ 答题界面的左右划定scrollview
+ */
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
