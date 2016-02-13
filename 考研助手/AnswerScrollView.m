@@ -17,7 +17,7 @@
 @end 
 
 @implementation AnswerScrollView{
-    UIScrollView *_scrollView;
+    //UIScrollView *_scrollView;
     UITableView * _leftTableView;
     UITableView *_mainTableView;
     UITableView *_rightTableView;
@@ -31,10 +31,12 @@
         _currentPage = 0;
         _dataArray = [[NSArray alloc]initWithArray:array];
         _hadAnswerArray = [NSMutableArray array];
+        _isAnswerArray = [NSMutableArray array];
         for (int i =0; i<array.count; i++) {
             [_hadAnswerArray addObject:@"0"];
-            
+            [_isAnswerArray addObject:@"0"];
         }
+        //NSLog(@"%@ %@",_hadAnswerArray,_isAnswerArray);
         _scrollView = [[UIScrollView alloc]initWithFrame:frame];
         _scrollView.delegate = self;
         _leftTableView = [[UITableView alloc]initWithFrame:frame style:UITableViewStyleGrouped];
@@ -196,24 +198,51 @@
     }
     
     int page = [self getQuestionNumber:tableView andCurrentPage:_currentPage];
+    //判断点击的答案正确与否
     if ([_hadAnswerArray[page-1] intValue]!=0) {
         if ([model.manswer isEqualToString:[NSString stringWithFormat:@"%c",'A'+(int)indexPath.row]]) {
             cell.numberImage.hidden = NO;
             cell.numberImage.image = [UIImage imageNamed:@"19.png"];
+            
         }
         //if (![model.manswer isEqualToString:[NSString stringWithFormat:@"%c",'A'+[_hadAnswerArray[page-1] intValue]-1]] && indexPath.row==[_hadAnswerArray[page-1] intValue]-1) {
         else if (![model.manswer isEqualToString:[NSString stringWithFormat:@"%c",'A'+(int)indexPath.row]] && indexPath.row==[_hadAnswerArray[page-1] intValue]-1) {
             cell.numberImage.hidden = NO;
             cell.numberImage.image = [UIImage imageNamed:@"20.png"];
+          
+            //[_isAnswerArray replaceObjectAtIndex:page-1 withObject:@"-1"];  //选择错误
         }else{
             cell.numberImage.hidden = YES;
+            //[_isAnswerArray replaceObjectAtIndex:page-1 withObject:@"1"];;//选择正确
         }
         //点击错误答案后，加载tableView时显示点击过的错误答案与正确答案
     }else{
         cell.numberImage.hidden = YES;
     }
+    
     return cell;
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    int page = [self getQuestionNumber:tableView andCurrentPage:_currentPage];
+    AnswerModel *model = [self getTheFitModel:tableView];
+    if ([_hadAnswerArray[page -1] intValue]!=0) {
+        return;
+        
+    }else{
+        [_hadAnswerArray replaceObjectAtIndex:page-1 withObject:[NSString stringWithFormat:@"%ld",indexPath.row+1]];
+        if ([model.manswer isEqualToString:[NSString stringWithFormat:@"%c",'A'+(int)indexPath.row]]){
+            [_isAnswerArray replaceObjectAtIndex:page-1 withObject:@"1"];  //选择正确
+        }else{
+            [_isAnswerArray replaceObjectAtIndex:page-1 withObject:@"-1"];  //选择错误
+        }
+        //NSLog(@"%@",_isAnswerArray);
+        [_delegate AnswerScrollViewClick];
+    }
+    
+    [self reloadData];
+}
+
 
 //获取当前tableView的模型数据的模型数据
 -(AnswerModel *)getTheFitModel:(UITableView *)tableView{
@@ -235,19 +264,22 @@
     }
     return model;
 }
+
 //每当滑动结束时调用，当显示的tableView不是第一个与最后一个时，默认显示的是中间的_mainTableView，然后分别计算出两边的_leftTableView与_rightTableView的frame
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    CGPoint currentOffset = scrollView.contentOffset;
-    int page = (int)currentOffset.x/SIZE.width;
-    if (page<_dataArray.count-1 && page>0) {
-        _scrollView.contentSize = CGSizeMake(currentOffset.x+SIZE.width*2, 0);
-        _mainTableView.frame = CGRectMake(currentOffset.x, 0, SIZE.width, SIZE.height);
-        _leftTableView.frame = CGRectMake(currentOffset.x-SIZE.width, 0, SIZE.width, SIZE.height);
-        _rightTableView.frame = CGRectMake(currentOffset.x+SIZE.width, 0, SIZE.width, SIZE.height);
+    if( scrollView != _mainTableView){//用于解决tableview上下刷新数据获取的bug
+        CGPoint currentOffset = scrollView.contentOffset;
+        int page = (int)currentOffset.x/SIZE.width;
+        if (page<_dataArray.count-1 && page>0) {
+            _scrollView.contentSize = CGSizeMake(currentOffset.x+SIZE.width*2, 0);
+            _mainTableView.frame = CGRectMake(currentOffset.x, 0, SIZE.width, SIZE.height);
+            _leftTableView.frame = CGRectMake(currentOffset.x-SIZE.width, 0, SIZE.width, SIZE.  height);
+            _rightTableView.frame = CGRectMake(currentOffset.x+SIZE.width, 0, SIZE.width, SIZE.height);
         
+        }
+        _currentPage = page;
+        [self reloadData];
     }
-    _currentPage = page;
-    [self reloadData];
 }
 
 -(void)reloadData{
@@ -256,15 +288,5 @@
     [_mainTableView reloadData];
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    int page = [self getQuestionNumber:tableView andCurrentPage:_currentPage];
-    if ([_hadAnswerArray[page -1] intValue]!=0) {
-        return;
-    }else{
-        [_hadAnswerArray replaceObjectAtIndex:page-1 withObject:[NSString stringWithFormat:@"%ld",indexPath.row+1]];
-    }
-    
-    [self reloadData];
-}
 
 @end

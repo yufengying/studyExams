@@ -187,6 +187,7 @@
 		7DD9F5E21C5F9AE100F7C90B /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD9F5E11C5F9AE100F7C90B /* FirstViewController.m */; };
 		7DD9F5EB1C5F9E5C00F7C90B /* FirstTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD9F5E91C5F9E5C00F7C90B /* FirstTableViewCell.m */; };
 		7DD9F5EC1C5F9E5C00F7C90B /* FirstTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DD9F5EA1C5F9E5C00F7C90B /* FirstTableViewCell.xib */; };
+		7DE8F7ED1C6D4E4900E712B8 /* SheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE8F7EC1C6D4E4900E712B8 /* SheetView.m */; };
 		7DF3F73B1C5C616600DFD827 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF3F73A1C5C616600DFD827 /* main.m */; };
 		7DF3F73E1C5C616600DFD827 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF3F73D1C5C616600DFD827 /* AppDelegate.m */; };
 		7DF3F7411C5C616600DFD827 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF3F7401C5C616600DFD827 /* ViewController.m */; };
@@ -440,6 +441,8 @@
 		7DD9F5E81C5F9E5C00F7C90B /* FirstTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstTableViewCell.h; sourceTree = "<group>"; };
 		7DD9F5E91C5F9E5C00F7C90B /* FirstTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstTableViewCell.m; sourceTree = "<group>"; };
 		7DD9F5EA1C5F9E5C00F7C90B /* FirstTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirstTableViewCell.xib; sourceTree = "<group>"; };
+		7DE8F7EB1C6D4E4900E712B8 /* SheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SheetView.h; sourceTree = "<group>"; };
+		7DE8F7EC1C6D4E4900E712B8 /* SheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SheetView.m; sourceTree = "<group>"; };
 		7DF3F7361C5C616600DFD827 /* 考研助手.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "考研助手.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DF3F73A1C5C616600DFD827 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7DF3F73C1C5C616600DFD827 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -724,6 +727,8 @@
 				7D05A0CA1C6632E9009C36B9 /* AnswerScrollView.m */,
 				7D387B071C6BF279001D5E3F /* SelectModelView.h */,
 				7D387B081C6BF279001D5E3F /* SelectModelView.m */,
+				7DE8F7EB1C6D4E4900E712B8 /* SheetView.h */,
+				7DE8F7EC1C6D4E4900E712B8 /* SheetView.m */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -1185,6 +1190,7 @@
 			files = (
 				7DF3F7411C5C616600DFD827 /* ViewController.m in Sources */,
 				7DF3F73E1C5C616600DFD827 /* AppDelegate.m in Sources */,
+				7DE8F7ED1C6D4E4900E712B8 /* SheetView.m in Sources */,
 				7D05A0D71C6644CF009C36B9 /* AnswerTableViewCell.m in Sources */,
 				7DD9F5EB1C5F9E5C00F7C90B /* FirstTableViewCell.m in Sources */,
 				7D05A0C31C661AAD009C36B9 /* MyDataManager.m in Sources */,
@@ -1346,6 +1352,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zyq.;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1357,6 +1364,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zyq.;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

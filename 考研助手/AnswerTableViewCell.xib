@@ -57,6 +57,7 @@
                 <variation key="default">
                     <mask key="constraints">
                         <exclude reference="3Vn-IG-IAs"/>
+                        <exclude reference="Cjh-3y-BjB"/>
                         <exclude reference="vBO-VE-4qU"/>
                     </mask>
                 </variation>

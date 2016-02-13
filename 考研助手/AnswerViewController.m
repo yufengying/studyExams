@@ -11,10 +11,17 @@
 #import "MyDataManager.h"
 #import "AnswerModel.h"
 #import "SelectModelView.h"
+#import "SheetView.h"
+
 @interface AnswerViewController ()
 {
-    AnswerScrollView * view;
-    SelectModelView * modelView;
+    AnswerScrollView * _answerScrollerView;
+    SelectModelView * _SelectModelView;
+    SheetView *_sheeetView;
+    NSMutableArray *_arr;
+    NSMutableArray *_isRightArr;
+    int _rightAns;
+    int _wrongAns;
 }
 @end
 
@@ -22,45 +29,59 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    _rightAns=0;
+    _wrongAns = 0;
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = [UIColor whiteColor];
     [self createData];
     
-    NSMutableArray * arr = [NSMutableArray array];
+    _arr = [NSMutableArray array];
     NSArray * array = [MyDataManager getData:answer];
     
     for (int i=0; i<array.count-1; i++) {
         AnswerModel *model = array[i];
         if ([model.pid intValue]==_number+1) {
-            [arr addObject:model];
+            [_arr addObject:model];
         }
     }
     
-    view = [[AnswerScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64-60) withDataArray:arr];
-    [self.view addSubview:view];
+    _answerScrollerView = [[AnswerScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64-60) withDataArray:_arr];
+    [self.view addSubview:_answerScrollerView];
+    _answerScrollerView.delegate = self;
+    //判断所选答案的正确性
+    _isRightArr = [[NSMutableArray alloc]initWithArray:_answerScrollerView.isAnswerArray];
+    //NSLog(@"%@,",_isRightArr);
+
     [self createToolBar];
     [self createModelView];
+    [self createSheetView];
+    
 }
 
 -(void)createData{
     
 }
 
+-(void)createSheetView{
+    _sheeetView = [[SheetView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height-80) WithSuperView:self.view andQuesCount:(int)_arr.count];
+    _sheeetView.delegate = self;
+    [self.view addSubview:_sheeetView];
+}
+
 -(void)createModelView{
-    modelView = [[SelectModelView alloc]initWithFrame:self.view.frame addTouch:^(SelectModel model) {
+    _SelectModelView = [[SelectModelView alloc]initWithFrame:self.view.frame addTouch:^(SelectModel model) {
         NSLog(@"当前模式：%d",model);
     }];
     
-    [self.view addSubview:modelView];
-    modelView.alpha = 0;
+    [self.view addSubview:_SelectModelView];
+    _SelectModelView.alpha = 0;
     UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithTitle:@"答题模式" style:UIBarButtonItemStylePlain target:self action:@selector(modelChange:)];
     self.navigationItem.rightBarButtonItem = item;
 }
 
 -(void)modelChange:(UIBarButtonItem *)item{
     [UIView animateWithDuration:0.3 animations:^{
-        modelView.alpha = 1;
+        _SelectModelView.alpha = 1;
     }];
 }
 
@@ -68,7 +89,7 @@
 -(void)createToolBar{
     UIView * barView = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height-60-64, self.view.frame.size.width, 60)];
     barView.backgroundColor = [UIColor whiteColor];
-    NSArray * arr = @[@"1111",@"查看答案",@"收藏本题"];
+    NSArray * arr = @[@"选择题目",@"查看答案",@"收藏本题"];
     for (int i = 0; i<3; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.frame = CGRectMake(self.view.frame.size.width/3*i+self.view.frame.size.width/3/2-22, 0, 36, 36);
@@ -88,17 +109,26 @@
 
 -(void)clickToolBar:(UIButton *)btn{
     switch (btn.tag) {
+        case 301://查看答案
+        {
+            [UIView animateWithDuration:0.3 animations:^{
+                _sheeetView.frame = CGRectMake(0, 80, self.view.frame.size.width, self.view.frame.size.height-80);
+                //访问SheetView中的_backView.h的public属性 用 "->"访问
+                _sheeetView->_backView.alpha = 0.8;
+            }];
+        }
+            break;
         case 302://查看答案
         {
-            if ([view.hadAnswerArray[view.currentPage]intValue]!=0) {
+            if ([_answerScrollerView.hadAnswerArray[_answerScrollerView.currentPage]intValue]!=0) {
                 return;
             }else{
-                AnswerModel *model = [view.dataArray objectAtIndex:view.currentPage];
+                AnswerModel *model = [_answerScrollerView.dataArray objectAtIndex:_answerScrollerView.currentPage];
                 NSString * answer = model.manswer;
                 NSLog(@"%@",answer);
                 char an = [answer characterAtIndex:0];
-                [view.hadAnswerArray replaceObjectAtIndex:view.currentPage withObject:[NSString stringWithFormat:@"%d",an-'A'+1]];
-                [view reloadData];
+                [_answerScrollerView.hadAnswerArray replaceObjectAtIndex:_answerScrollerView.currentPage withObject:[NSString stringWithFormat:@"%d",an-'A'+1]];
+                [_answerScrollerView reloadData];
             } 
         }
             break;
@@ -106,6 +136,32 @@
         default:
             break;
     }
+}
+
+#pragma mark - SheetViewDelegate
+-(void)SheetViewClick:(int)index{
+    //_answerScrollerView.currentPage = index;
+    UIScrollView *scroll = _answerScrollerView->_scrollView;
+    scroll.contentOffset = CGPointMake((index-1)*scroll.frame.size.width, 0);
+    [scroll.delegate scrollViewDidEndDecelerating:scroll];
+}
+
+#pragma mark -AnswerScrollViewDelegate
+-(void)AnswerScrollViewClick{
+    _isRightArr = [[NSMutableArray alloc]initWithArray:_answerScrollerView.isAnswerArray];
+    //NSLog(@"%@",_isRightArr);
+    for (int i = 0;i<_isRightArr.count;i++) {
+        if ([_isRightArr[i] isEqualToString:@"1"]) {
+            _rightAns++;
+
+        }else if ([_isRightArr[i] isEqualToString:@"-1"]){
+            _wrongAns++;
+        }
+    }
+    //_sheeetView.ansArray = [[NSMutableArray alloc]initWithArray:_isRightArr];
+    _sheeetView.label.text = [NSString stringWithFormat:@"正确 :%d 道题 错误 :%d 道题 还剩 %d 题未做",_rightAns,_wrongAns,(int)_isRightArr.count-_rightAns-_wrongAns];
+    _rightAns = 0;
+    _wrongAns =0;
 }
 
 - (void)didReceiveMemoryWarning {

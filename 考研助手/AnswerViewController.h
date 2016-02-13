@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface AnswerViewController : UIViewController
+#import "SheetView.h"
+@interface AnswerViewController : UIViewController<SheetViewDelegate>
 //number为选择的章节数
 @property (nonatomic,assign)int number;
 //type=1 章节 type=2 顺序练习 type=3 随机练习

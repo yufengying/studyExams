@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "FirstViewController.h"
 #import "SelectView.h"
+
 @interface ViewController ()
 {
     SelectView * _selectView;
@@ -71,8 +72,8 @@
     _selectView = [[SelectView alloc]initWithFrame:self.view.frame andBtn:selectBtn];
     _selectView.alpha = 0;
     [self.view addSubview:_selectView];
+    //NSLog(@"%@",[NSString stringWithFormat:@"屏幕的宽度为：%f，长度为：%f",self.view.frame.size.width,self.view.frame.size.height]);
 }
-
 -(void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
