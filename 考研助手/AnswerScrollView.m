@@ -77,7 +77,12 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 4;
+    AnswerModel *model = [self getTheFitModel:tableView];
+    if ([model.mtype intValue] == 1) {
+        return 4;
+    }else {
+        return 2;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -193,33 +198,55 @@
     
     cell.numberLabel.text = [NSString stringWithFormat:@"%c",(char)('A'+indexPath.row)];
     AnswerModel *model = [self getTheFitModel:tableView];
-    if ([model.mtype intValue]==1) {
-        cell.answerLabel.text = [[Tools getAnswerWithString:model.mquestion]objectAtIndex:indexPath.row+1];
-    }
     
-    int page = [self getQuestionNumber:tableView andCurrentPage:_currentPage];
-    //判断点击的答案正确与否
-    if ([_hadAnswerArray[page-1] intValue]!=0) {
-        if ([model.manswer isEqualToString:[NSString stringWithFormat:@"%c",'A'+(int)indexPath.row]]) {
-            cell.numberImage.hidden = NO;
-            cell.numberImage.image = [UIImage imageNamed:@"19.png"];
-            
-        }
-        //if (![model.manswer isEqualToString:[NSString stringWithFormat:@"%c",'A'+[_hadAnswerArray[page-1] intValue]-1]] && indexPath.row==[_hadAnswerArray[page-1] intValue]-1) {
-        else if (![model.manswer isEqualToString:[NSString stringWithFormat:@"%c",'A'+(int)indexPath.row]] && indexPath.row==[_hadAnswerArray[page-1] intValue]-1) {
-            cell.numberImage.hidden = NO;
-            cell.numberImage.image = [UIImage imageNamed:@"20.png"];
-          
-            //[_isAnswerArray replaceObjectAtIndex:page-1 withObject:@"-1"];  //选择错误
+    if ([model.mtype intValue]==1) {//选择题
+        cell.answerLabel.text = [[Tools getAnswerWithString:model.mquestion]objectAtIndex:indexPath.row+1];
+        int page = [self getQuestionNumber:tableView andCurrentPage:_currentPage];
+        //判断点击的答案正确与否
+        if ([_hadAnswerArray[page-1] intValue]!=0) {
+            if ([model.manswer isEqualToString:[NSString stringWithFormat:@"%c",'A'+(int)indexPath.row]]) {
+                cell.numberImage.hidden = NO;
+                cell.numberImage.image = [UIImage imageNamed:@"19.png"];
+                
+            }
+            //if (![model.manswer isEqualToString:[NSString stringWithFormat:@"%c",'A'+[_hadAnswerArray[page-1] intValue]-1]] && indexPath.row==[_hadAnswerArray[page-1] intValue]-1) {
+            else if (![model.manswer isEqualToString:[NSString stringWithFormat:@"%c",'A'+(int)indexPath.row]] && indexPath.row==[_hadAnswerArray[page-1] intValue]-1) {
+                cell.numberImage.hidden = NO;
+                cell.numberImage.image = [UIImage imageNamed:@"20.png"];
+                
+                //[_isAnswerArray replaceObjectAtIndex:page-1 withObject:@"-1"];  //选择错误
+            }else{
+                cell.numberImage.hidden = YES;
+                //[_isAnswerArray replaceObjectAtIndex:page-1 withObject:@"1"];;//选择正确
+            }
+            //点击错误答案后，加载tableView时显示点击过的错误答案与正确答案
         }else{
             cell.numberImage.hidden = YES;
-            //[_isAnswerArray replaceObjectAtIndex:page-1 withObject:@"1"];;//选择正确
         }
-        //点击错误答案后，加载tableView时显示点击过的错误答案与正确答案
-    }else{
-        cell.numberImage.hidden = YES;
+        
+    } else if([model.mtype intValue]==2){//判断题
+        if (indexPath.row==0) {
+            cell.answerLabel.text = @"对";
+        }else if(indexPath.row==1){
+            cell.answerLabel.text = @"错";
+        }
+        
+        //cell.answerLabel.text = [[Tools getAnswerWithString:model.mquestion]objectAtIndex:indexPath.row+1];
+        int page = [self getQuestionNumber:tableView andCurrentPage:_currentPage];
+        
+        if ([_hadAnswerArray[page-1] intValue]!=0){
+            if ([cell.answerLabel.text isEqualToString:model.manswer]) {
+                cell.numberImage.hidden = NO;
+                cell.numberImage.image = [UIImage imageNamed:@"19.png"];
+            }else if(![cell.answerLabel.text isEqualToString:model.manswer] && indexPath.row==[_hadAnswerArray[page-1] intValue]-1){
+                cell.numberImage.hidden = NO;
+                cell.numberImage.image = [UIImage imageNamed:@"20.png"];
+            }
+        }else{
+                cell.numberImage.hidden = YES;
+        }
     }
-    
+
     return cell;
 }
 
@@ -231,13 +258,24 @@
         
     }else{
         [_hadAnswerArray replaceObjectAtIndex:page-1 withObject:[NSString stringWithFormat:@"%ld",indexPath.row+1]];
-        if ([model.manswer isEqualToString:[NSString stringWithFormat:@"%c",'A'+(int)indexPath.row]]){
-            [_isAnswerArray replaceObjectAtIndex:page-1 withObject:@"1"];  //选择正确
+        
+        if ([model.mtype intValue] == 1) {
+            if ([model.manswer isEqualToString:[NSString stringWithFormat:@"%c",'A'+(int)indexPath.row]]){
+                [_isAnswerArray replaceObjectAtIndex:page-1 withObject:@"1"];  //选择正确
+            }else{
+                [_isAnswerArray replaceObjectAtIndex:page-1 withObject:@"-1"];  //选择错误
+            }
+            //NSLog(@"%@",_isAnswerArray);
+            [_delegate AnswerScrollViewClick];
         }else{
-            [_isAnswerArray replaceObjectAtIndex:page-1 withObject:@"-1"];  //选择错误
+            AnswerTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+            if ([cell.answerLabel.text isEqualToString:model.manswer]) {
+                [_isAnswerArray replaceObjectAtIndex:page-1 withObject:@"1"];
+            }else{
+                [_isAnswerArray replaceObjectAtIndex:page-1 withObject:@"-1"];
+            }
+            [_delegate AnswerScrollViewClick];
         }
-        //NSLog(@"%@",_isAnswerArray);
-        [_delegate AnswerScrollViewClick];
     }
     
     [self reloadData];

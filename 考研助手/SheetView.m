@@ -73,11 +73,21 @@
 
 -(void)click:(UIButton *)btn{
     int index =(int) btn.tag-100;
+    if (_ansArray!=nil) {
+        [self setImageWith:_ansArray];
+    }
+    
     for (int i=0; i<_count; i++) {
         UIButton *button = (UIButton *)[self viewWithTag:i+101];
-        if (i!=index-1) {
-            button.backgroundColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1];
-        }else{
+        if (_ansArray == nil) {
+                if (i!=index-1) {
+                        button.backgroundColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1];
+                    }else{
+                        button.backgroundColor = [UIColor orangeColor];
+                   }
+        }
+
+        if (i==index-1) {
             button.backgroundColor = [UIColor orangeColor];
         }
     }
@@ -85,21 +95,21 @@
     NSLog(@"%@",_ansArray);
 }
 
-//-(void) setImageWith:(NSMutableArray *)arr{
-//    _ansArray = [[NSMutableArray alloc]initWithArray:arr];
-//    for (int i =0; i<_count; i++) {
-//        UIButton *button1 = (UIButton *)[self viewWithTag:i+101];
-//        NSString *temp = _ansArray[i];
-//        
-//        if ([temp isEqualToString:@"0"]) {
-//            button1.backgroundColor = [UIColor grayColor];
-//        }else if([temp isEqualToString:@"1"]){
-//            button1.backgroundColor = [UIColor greenColor];
-//        }else if([temp isEqualToString:@"-1"]){
-//            button1.backgroundColor =[UIColor redColor];
-//        }
-//    }
-//}
+-(void) setImageWith:(NSMutableArray *)arr{
+    _ansArray = [[NSMutableArray alloc]initWithArray:arr];
+    for (int i =0; i<_count; i++) {
+        UIButton *button1 = (UIButton *)[self viewWithTag:i+101];
+        NSString *temp = _ansArray[i];
+        
+        if ([temp isEqualToString:@"0"]) {
+            button1.backgroundColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1];
+        }else if([temp isEqualToString:@"1"]){
+            button1.backgroundColor = [UIColor greenColor];
+        }else if([temp isEqualToString:@"-1"]){
+            button1.backgroundColor =[UIColor redColor];
+        }
+    }
+}
 
 //point 为点击点在SheetView中的相对位置  self.frame.origin.y是当前的在父控件中的相对位置
 -(void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{

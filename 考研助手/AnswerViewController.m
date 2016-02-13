@@ -158,6 +158,7 @@
             _wrongAns++;
         }
     }
+    [_sheeetView setImageWith:_isRightArr];
     //_sheeetView.ansArray = [[NSMutableArray alloc]initWithArray:_isRightArr];
     _sheeetView.label.text = [NSString stringWithFormat:@"正确 :%d 道题 错误 :%d 道题 还剩 %d 题未做",_rightAns,_wrongAns,(int)_isRightArr.count-_rightAns-_wrongAns];
     _rightAns = 0;
