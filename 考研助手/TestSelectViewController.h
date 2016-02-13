@@ -12,5 +12,7 @@
 
 @property(nonatomic,copy)NSString * myTitle;
 @property (nonatomic,copy) NSArray *dataArray;
+//type=1  章节  2=专项    
+@property(nonatomic,assign)int type;
 
 @end

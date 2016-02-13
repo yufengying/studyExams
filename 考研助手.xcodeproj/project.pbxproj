@@ -178,6 +178,7 @@
 		7D05A0D81C6644CF009C36B9 /* AnswerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D05A0D61C6644CF009C36B9 /* AnswerTableViewCell.xib */; };
 		7D05A0DB1C664C5A009C36B9 /* AnswerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D05A0DA1C664C5A009C36B9 /* AnswerViewController.m */; };
 		7D387B091C6BF279001D5E3F /* SelectModelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D387B081C6BF279001D5E3F /* SelectModelView.m */; };
+		7D75AA391C6FDD170094CA8B /* SubTestSelectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D75AA381C6FDD170094CA8B /* SubTestSelectModel.m */; };
 		7DA357FC1C66E48C00162F5A /* AnswerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA357FB1C66E48C00162F5A /* AnswerModel.m */; };
 		7DA357FF1C66E77300162F5A /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA357FE1C66E77300162F5A /* Tools.m */; };
 		7DBD46F51C60D82F005CC0F0 /* TestSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DBD46F41C60D82F005CC0F0 /* TestSelectViewController.m */; };
@@ -425,6 +426,8 @@
 		7D05A0DA1C664C5A009C36B9 /* AnswerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnswerViewController.m; sourceTree = "<group>"; };
 		7D387B071C6BF279001D5E3F /* SelectModelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectModelView.h; sourceTree = "<group>"; };
 		7D387B081C6BF279001D5E3F /* SelectModelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectModelView.m; sourceTree = "<group>"; };
+		7D75AA371C6FDD170094CA8B /* SubTestSelectModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubTestSelectModel.h; sourceTree = "<group>"; };
+		7D75AA381C6FDD170094CA8B /* SubTestSelectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubTestSelectModel.m; sourceTree = "<group>"; };
 		7DA357FA1C66E48C00162F5A /* AnswerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnswerModel.h; sourceTree = "<group>"; };
 		7DA357FB1C66E48C00162F5A /* AnswerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnswerModel.m; sourceTree = "<group>"; };
 		7DA357FD1C66E77300162F5A /* Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
@@ -714,6 +717,8 @@
 				7D05A0C61C661DE3009C36B9 /* TestSelectModel.m */,
 				7DA357FA1C66E48C00162F5A /* AnswerModel.h */,
 				7DA357FB1C66E48C00162F5A /* AnswerModel.m */,
+				7D75AA371C6FDD170094CA8B /* SubTestSelectModel.h */,
+				7D75AA381C6FDD170094CA8B /* SubTestSelectModel.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -1204,6 +1209,7 @@
 				7DA357FF1C66E77300162F5A /* Tools.m in Sources */,
 				7DD9F5E21C5F9AE100F7C90B /* FirstViewController.m in Sources */,
 				7DA357FC1C66E48C00162F5A /* AnswerModel.m in Sources */,
+				7D75AA391C6FDD170094CA8B /* SubTestSelectModel.m in Sources */,
 				7DD9F5DF1C5F734300F7C90B /* SelectView.m in Sources */,
 				7DF3F73B1C5C616600DFD827 /* main.m in Sources */,
 				7DBD46F91C60DAA2005CC0F0 /* TestSelectTableViewCell.m in Sources */,

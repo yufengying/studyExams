@@ -12,6 +12,7 @@
 #import "FirstTableViewCell.h"
 #import "TestSelectViewController.h"
 #import "MyDataManager.h"
+#import "AnswerViewController.h"
 
 @interface FirstViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -57,6 +58,7 @@
     _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 250) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    _tableView.scrollEnabled = NO;
     [self.view addSubview:_tableView];
 }
 
@@ -94,8 +96,36 @@
         case 0://章节练习
         {
             TestSelectViewController *con = [[TestSelectViewController alloc]init];
+            con.type = 1;
             con.myTitle = @"章节练习";
             con.dataArray = [MyDataManager getData:chapter];
+            UIBarButtonItem *item = [[UIBarButtonItem alloc]init];
+            item.title = @"";
+            item.tintColor = [UIColor whiteColor];
+            self.navigationItem.backBarButtonItem = item;
+            [self.navigationController pushViewController:con animated:YES];
+        }
+            break;
+        case 1://顺序练习
+        {
+            AnswerViewController *answer = [[AnswerViewController alloc]init];
+            answer.type = 2;
+            [self.navigationController pushViewController:answer animated:YES];
+        }
+            break;
+        case 2://章节练习
+        {
+            AnswerViewController * answer = [[AnswerViewController alloc]init];
+            answer.type = 3;
+            [self.navigationController pushViewController:answer animated:YES];
+        }
+            break;
+        case 3://专项练习
+        {
+            TestSelectViewController *con = [[TestSelectViewController alloc]init];
+            con.type = 2;
+            con.myTitle = @"专项练习";
+            con.dataArray = [MyDataManager getData:subChapter];
             UIBarButtonItem *item = [[UIBarButtonItem alloc]init];
             item.title = @"";
             item.tintColor = [UIColor whiteColor];

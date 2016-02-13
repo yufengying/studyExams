@@ -35,17 +35,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self createData];
     
-    _arr = [NSMutableArray array];
-    NSArray * array = [MyDataManager getData:answer];
     
-    for (int i=0; i<array.count-1; i++) {
-        AnswerModel *model = array[i];
-        if ([model.pid intValue]==_number+1) {
-            [_arr addObject:model];
-        }
-    }
-    
-    _answerScrollerView = [[AnswerScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64-60) withDataArray:_arr];
     [self.view addSubview:_answerScrollerView];
     _answerScrollerView.delegate = self;
     //判断所选答案的正确性
@@ -59,7 +49,48 @@
 }
 
 -(void)createData{
-    
+    if(_type==1){
+        _arr = [NSMutableArray array];
+        NSArray * array = [MyDataManager getData:answer];
+        
+        for (int i=0; i<array.count-1; i++) {
+            AnswerModel *model = array[i];
+            if ([model.pid intValue]==_number+1) {
+                [_arr addObject:model];
+            }
+        }
+        
+        _answerScrollerView = [[AnswerScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64-60) withDataArray:_arr];
+    }else if(_type ==2){
+        //顺序练习处理
+        _answerScrollerView = [[AnswerScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64-60) withDataArray:[MyDataManager getData:answer]];
+
+    }else if(_type ==3 ){
+        //随机练习
+        NSMutableArray * temArr = [[NSMutableArray alloc]init];
+        NSArray *array = [MyDataManager getData:answer];
+        NSMutableArray *dataArray = [[NSMutableArray alloc]init];
+        [temArr addObjectsFromArray:array];
+        for (int i=0; i<temArr.count; ) {
+            int index = arc4random()%(temArr.count);
+            [dataArray addObject:temArr[index]];
+            [temArr removeObjectAtIndex:index];
+        }
+        _answerScrollerView = [[AnswerScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64-60) withDataArray:dataArray];
+    }else if (_type ==4){
+        _arr = [NSMutableArray array];
+        NSArray * array = [MyDataManager getData:answer];
+        
+        for (int i=0; i<array.count-1; i++) {
+            AnswerModel *model = array[i];
+            if ([model.sid isEqualToString:_subStrNumber]) {
+                [_arr addObject:model];
+            }
+        }
+        
+        _answerScrollerView = [[AnswerScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64-60) withDataArray:_arr];
+    }
+
 }
 
 -(void)createSheetView{
@@ -89,7 +120,7 @@
 -(void)createToolBar{
     UIView * barView = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height-60-64, self.view.frame.size.width, 60)];
     barView.backgroundColor = [UIColor whiteColor];
-    NSArray * arr = @[@"选择题目",@"查看答案",@"收藏本题"];
+    NSArray * arr = @[[NSString stringWithFormat:@"共%ld题",_answerScrollerView.dataArray.count],@"查看答案",@"收藏本题"];
     for (int i = 0; i<3; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.frame = CGRectMake(self.view.frame.size.width/3*i+self.view.frame.size.width/3/2-22, 0, 36, 36);

@@ -10,6 +10,7 @@
 #import "FMDatabase.h"
 #import "TestSelectModel.h"
 #import "AnswerModel.h"
+#import "s"
 
 @implementation MyDataManager
 +(NSArray *)getData:(DataType)type{
@@ -55,6 +56,20 @@
                 model.sid = [NSString stringWithFormat:@"%d",[rs intForColumn:@"sid"]];
                 model.sname = [rs stringForColumn:@"sname"];
                 model.mtype = [NSString stringWithFormat:@"%d",[rs intForColumn:@"mtype"]];
+                [array addObject:model];
+            }
+        }
+            break;
+        case subChapter:
+        {
+            NSString * sql = @"select pid,sname,scount,sid from secondlevel";
+            FMResultSet *rs = [dataBase executeQuery:sql];
+            while ([rs next]) {
+                TestSelectModel *model = [[TestSelectModel alloc]init];
+                model.pid = [NSString stringWithFormat:@"%d",[rs intForColumn:@"pid"]];
+                model.pname = [rs stringForColumn:@"pname"];
+                model.pcount = [NSString stringWithFormat:@"%d",[rs intForColumn:@"pcount"]];
+                
                 [array addObject:model];
             }
         }

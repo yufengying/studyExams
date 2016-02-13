@@ -14,6 +14,7 @@
 #import "TestSelectTableViewCell.h"
 #import "TestSelectModel.h"
 #import "AnswerViewController.h"
+#import "SubTestSelectModel.h"
 
 @interface TestSelectViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -35,6 +36,7 @@
     _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64) style:UITableViewStylePlain];
     _tableView.dataSource = self;
     _tableView.delegate = self;
+    _tableView.scrollEnabled = NO;
     [self.view addSubview:_tableView];
 }
 
@@ -60,9 +62,16 @@
         cell.numberLabel.layer.masksToBounds = YES;
         cell.numberLabel.layer.cornerRadius = 8;
     }
-    TestSelectModel * model = _dataArray[indexPath.row];
-    cell.numberLabel.text = model.pid;
-    cell.titleLabel.text = model.pname;
+    if (_type == 1) {
+        TestSelectModel * model = _dataArray[indexPath.row];
+        cell.numberLabel.text = model.pid;
+        cell.titleLabel.text = model.pname;
+    }else {
+        SubTestSelectModel * model = _dataArray[indexPath.row];
+        cell.numberLabel.text = model.serial;
+        cell.titleLabel.text = model.sname;
+    }
+
     return cell;
 }
 
@@ -72,7 +81,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     AnswerViewController * avc = [[AnswerViewController alloc]init];
-    avc.number = indexPath.row;
+    
+    if (_type==1) {
+        avc.type = 1;
+    }else{
+        avc.type = 4;
+    }
     [self.navigationController pushViewController:avc animated:YES];
 }
 
